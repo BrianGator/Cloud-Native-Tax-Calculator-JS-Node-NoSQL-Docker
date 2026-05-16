@@ -118,10 +118,6 @@ export default function App() {
                 Reset Form
               </button>
             </div>
-            <div className="px-5 py-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center gap-3">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-              <span className="text-sm font-black text-emerald-700 uppercase tracking-widest">System Active</span>
-            </div>
           </div>
         </div>
       </header>
@@ -136,15 +132,15 @@ export default function App() {
           {loading ? (
             <div className="flex items-center gap-3 text-emerald-600 animate-pulse py-12">
               <RefreshCcw className="animate-spin" size={24} />
-              <span className="font-bold uppercase tracking-widest text-sm">Consulting NoSQL Backend...</span>
+              <span className="font-bold uppercase tracking-widest text-sm">Loading Data...</span>
             </div>
           ) : (
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
-                Modernize your <span className="text-emerald-600">tax calculation</span> infrastructure.
+                Tax Calculation <span className="text-emerald-600">Infrastructure</span>.
               </h1>
               <p className="text-lg text-slate-600 leading-relaxed max-w-xl">
-                Agile planning, containerization, and automated pipelines. A full-stack assessment of your cloud-native capabilities powered by <span className="text-slate-900 font-semibold">Firebase NoSQL</span>.
+                Calculations powered by <span className="text-slate-900 font-semibold">Firebase NoSQL</span>.
               </p>
             </div>
           )}
@@ -238,46 +234,6 @@ export default function App() {
                 <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
               </button>
             </form>
-
-            <div className="space-y-4">
-              <h2 className="text-xs font-bold text-slate-900 uppercase tracking-widest">Project Roadmap</h2>
-              <div className="space-y-3">
-                {[
-                  { tag: 'Phase A', title: 'Agile Planning', status: 'Complete' },
-                  { tag: 'Phase B', title: 'Containerization', status: 'Dockerized' },
-                  { tag: 'Phase C', title: 'CI/CD Pipeline', status: 'Tekton' },
-                ].map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200 relative overflow-hidden group">
-                    <span className="text-[10px] text-emerald-600 font-bold uppercase block mb-1">{item.tag}</span>
-                    <p className="text-sm font-semibold text-slate-900">{item.title}</p>
-                    <p className="text-[11px] text-slate-900 mt-1">{item.status}</p>
-                    {idx === 0 && <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600" />}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* DevOps Progress Indicators */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-4 group">
-              <div className="p-2.5 bg-white border border-slate-200 rounded-lg text-emerald-600 group-hover:scale-110 transition-transform">
-                <ShieldCheck size={20} />
-              </div>
-              <div>
-                <p className="font-bold text-xs text-slate-900">Jasmine Tests</p>
-                <p className="text-[11px] text-slate-900">7 Specs Passing</p>
-              </div>
-            </div>
-            <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-4 group">
-              <div className="p-2.5 bg-white border border-slate-200 rounded-lg text-emerald-600 group-hover:scale-110 transition-transform">
-                <Landmark size={20} />
-              </div>
-              <div>
-                <p className="font-bold text-xs text-slate-900">IBM Cloud Ready</p>
-                <p className="text-[11px] text-slate-900">Code Engine Active</p>
-              </div>
-            </div>
           </div>
         </motion.div>
 
