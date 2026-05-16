@@ -1,0 +1,33 @@
+// Written by Brian McCarthy
+// Cloud Native Tax Calculator Firestore Security Rules
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Tax Brackets - Publicly readable for calculation
+    match /taxBrackets/{bracketId} {
+      allow read: if true;
+      
+      // Only authenticated admins could theoretically write (not implemented in UI yet)
+      // For now, blocking client writes to maintain integrity
+      allow write: if false;
+    }
+
+    // Helper Functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isValidTaxBracket(data) {
+      return data.rate is number && data.rate >= 0 && data.rate <= 1
+          && data.order is int
+          && data.label is string && data.label.size() <= 100
+          && (data.limit == null || data.limit is number);
+    }
+  }
+}

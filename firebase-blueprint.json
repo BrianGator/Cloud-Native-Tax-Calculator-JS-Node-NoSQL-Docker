@@ -1,0 +1,22 @@
+{
+  "entities": {
+    "TaxBracket": {
+      "title": "Tax Bracket",
+      "description": "Configuration for a single tax bracket tier",
+      "type": "object",
+      "properties": {
+        "limit": { "type": "number", "description": "The upper bound of the income for this bracket. Null for the top bracket." },
+        "rate": { "type": "number", "description": "The tax rate for this bracket (e.g. 0.15 for 15%)." },
+        "order": { "type": "integer", "description": "The sorting order of the bracket." },
+        "label": { "type": "string", "description": "Descriptive name for the tier." }
+      },
+      "required": ["rate", "order", "label"]
+    }
+  },
+  "firestore": {
+    "taxBrackets": {
+      "schema": "TaxBracket",
+      "description": "True NoSQL collection of tax brackets for dynamic configuration."
+    }
+  }
+}

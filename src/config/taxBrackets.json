@@ -1,0 +1,8 @@
+{
+  "brackets": [
+    { "limit": 10000, "rate": 0.10, "label": "Starter Bracket" },
+    { "limit": 40000, "rate": 0.15, "label": "Progressive Bracket" },
+    { "limit": 80000, "rate": 0.25, "label": "Upper Bracket" },
+    { "limit": null, "rate": 0.35, "label": "Top Tier" }
+  ]
+}

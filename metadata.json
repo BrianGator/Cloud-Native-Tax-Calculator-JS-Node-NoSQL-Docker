@@ -1,0 +1,8 @@
+{
+  "name": "Cloud Native Tax Calculator",
+  "description": "A modernized tax calculation application designed for cloud-native deployment with containerization and automated pipelines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
