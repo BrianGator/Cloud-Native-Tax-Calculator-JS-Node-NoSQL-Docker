@@ -1,24 +1,20 @@
-# Written by Brian McCarthy
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: npminstall
+  name: npm
 spec:
   workspaces:
-  - name: source
+    - name: source
+  params:
+    - name: args
+      type: array
+      default: ["install"]
   steps:
-  - name: install
-    image: node:20-buster-slim
-    workingDir: $(workspaces.source.path)
-    script: |
-      set -e
-      echo "***** Environment *****"
-      npm --version
-      pwd
-      echo "***** Cleaning npm cache *****"
-      npm cache clean --force
-      echo "***** Running npm install *****"
-      npm install
+    - name: npm-exec
+      image: node:20-buster-slim
+      workingDir: $(workspaces.source.path)
+      script: |
+        npm $(params.args)
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -26,12 +22,11 @@ metadata:
   name: jasmine
 spec:
   workspaces:
-  - name: source
+    - name: source
   steps:
-  - name: test
-    image: node:20-buster-slim
-    workingDir: $(workspaces.source.path)
-    script: |
-      set -e
-      echo "***** Running jasminetests *****"
-      npx jasmine
+    - name: test
+      image: node:20-buster-slim
+      workingDir: $(workspaces.source.path)
+      script: |
+        npm install
+        npx jasmine

@@ -66,7 +66,7 @@ export default function App() {
               <Calculator size={20} />
             </div>
             <div>
-              <span className="font-bold text-lg tracking-tight text-[#F4F4F5] block leading-none">CloudTax</span>
+              <span className="font-bold text-lg tracking-tight text-[#F4F4F5] block leading-none">tax-calculator</span>
               <span className="text-[10px] text-[#71717A] uppercase tracking-widest font-bold">Written by Brian McCarthy</span>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function App() {
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label htmlFor="income" className="text-xs font-bold uppercase tracking-widest text-[#71717A]">Annual Gross Income</label>
+                    <label htmlFor="income" className="text-xs font-bold uppercase tracking-widest text-[#71717A]">Your Total Income</label>
                     <div className={`flex items-center gap-1.5 px-2 py-0.5 border rounded text-[10px] font-bold transition-colors ${
                       dataSource === 'NoSQL' 
                         ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
@@ -187,7 +187,7 @@ export default function App() {
                 type="submit"
                 className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all group shadow-lg shadow-emerald-900/20 uppercase text-xs tracking-widest"
               >
-                Perform Assessment
+                Calculate
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
@@ -253,7 +253,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-[#A1A1AA] text-sm font-medium">Projected Tax Liability</p>
+                  <p className="text-[#A1A1AA] text-sm font-medium">Tax Due</p>
                   <h2 className="text-6xl font-bold tracking-tighter text-white">
                     ${result.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </h2>

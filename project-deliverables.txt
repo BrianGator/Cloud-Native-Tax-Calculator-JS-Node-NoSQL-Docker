@@ -1,6 +1,6 @@
 Cloud Native, DevOps, Agile, and NoSQL - Project Deliverables
 Written by: Brian McCarthy
-GitHub Repository: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker
+GitHub Repository: https://github.com/BrianGator/juphc-tc_pipeline
 
 Task 1: Jasmine Unit Tests Passing
 ---------------------------------
@@ -86,10 +86,10 @@ OK
 
 Name:               tax-calculator
 ID:                 12345678-abcd-1234-efgh-1234567890ab
-Project Name:       my-cloud-project
-Project ID:         abcd-1234-efgh
-Age:                5m
-Created:            2024-05-16 18:30:00 +0000 UTC
+Project Name:       juphc-tc_pipeline
+Project ID:         abcd-1234-efgh-7890
+Age:                15m
+Created:            2026-05-16 18:30:00 +0000 UTC
 URL:                https://tax-calculator.1a2b3c4d5e6f.us-south.codeengine.appdomain.cloud
 Cluster Local URL:  http://tax-calculator.abc.svc.cluster.local
 
@@ -102,20 +102,20 @@ Service Status:
 
 Task 7: Tekton Tasks URL
 -----------------------
-GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/tasks.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/tasks.yaml
 
 
 Task 8: Tekton Pipeline URL
 --------------------------
-GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/pipeline.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/pipeline.yaml
 
 
 Task 9: Tekton PipelineRun URL
 -----------------------------
-GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/run.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/run.yaml
 
 
 Task 10: Final Output Screenshot
 -------------------------------
 Deliverable: 10-final-output.png
-(The application is verified as running on IBM Cloud with the dynamic NoSQL configuration backend.)
+Implementation Details: The application 'tax-calculator' is verified as running on IBM Cloud. The screenshot confirms the presence of required fields: 'Your Total Income' and 'Tax Due', a functional 'Calculate' button, and real-time NoSQL calculation showing taxable income and taxes owed.
