@@ -1,6 +1,27 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
+  name: clone
+spec:
+  workspaces:
+    - name: output
+  params:
+    - name: url
+      type: string
+    - name: revision
+      type: string
+      default: master
+  steps:
+    - name: clone
+      image: alpine/git
+      workingDir: $(workspaces.output.path)
+      script: |
+        git clone $(params.url) .
+        git checkout $(params.revision)
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
   name: npm
 spec:
   workspaces:

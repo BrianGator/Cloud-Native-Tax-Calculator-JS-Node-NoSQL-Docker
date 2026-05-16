@@ -102,17 +102,17 @@ Service Status:
 
 Task 7: Tekton Tasks URL
 -----------------------
-GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/tasks.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/master/tasks.yaml
 
 
 Task 8: Tekton Pipeline URL
 --------------------------
-GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/pipeline.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/master/pipeline.yaml
 
 
 Task 9: Tekton PipelineRun URL
 -----------------------------
-GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/main/run.yaml
+GitHub URL: https://github.com/BrianGator/juphc-tc_pipeline/blob/master/run.yaml
 
 
 Task 10: Final Output Screenshot

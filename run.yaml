@@ -8,6 +8,8 @@ spec:
   params:
     - name: repo-url
       value: https://github.com/BrianGator/juphc-tc_pipeline
+    - name: branch
+      value: master
   workspaces:
     - name: shared-workspace
       persistentVolumeClaim:

@@ -3,10 +3,29 @@ kind: Pipeline
 metadata:
   name: tax-calculator-pipeline
 spec:
+  params:
+    - name: repo-url
+      type: string
+    - name: branch
+      type: string
+      default: master
   workspaces:
     - name: shared-workspace
   tasks:
+    - name: clone-source
+      taskRef:
+        name: clone
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.branch)
+      workspaces:
+        - name: output
+          workspace: shared-workspace
     - name: npminstall
+      runAfter:
+        - clone-source
       taskRef:
         name: npm
       params:
