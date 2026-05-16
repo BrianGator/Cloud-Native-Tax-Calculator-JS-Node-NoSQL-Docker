@@ -1,4 +1,6 @@
 {
+  "author": "Brian McCarthy",
+  "project": "Cloud Native Tax Calculator",
   "brackets": [
     { "limit": 10000, "rate": 0.10, "label": "Starter Bracket" },
     { "limit": 40000, "rate": 0.15, "label": "Progressive Bracket" },

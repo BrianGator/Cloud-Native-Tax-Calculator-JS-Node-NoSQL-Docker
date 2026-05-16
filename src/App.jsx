@@ -5,27 +5,42 @@
 import React, { useState, useEffect } from 'react';
 import { calculateTax } from './taxCalculator';
 import { getTaxBrackets, seedBrackets } from './services/taxService';
+import initialBrackets from './config/taxBrackets.json' with { type: 'json' };
 import { Calculator, ReceiptText, Landmark, ShieldCheck, ArrowRight, Database, RefreshCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [income, setIncome] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zip, setZip] = useState('');
+  const [allowances, setAllowances] = useState('');
   const [result, setResult] = useState(null);
   const [brackets, setBrackets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState('Checking...');
 
   useEffect(() => {
     async function loadData() {
       try {
         let data = await getTaxBrackets();
-        if (!data) {
+        if (!data || data.length === 0) {
           console.log('No brackets found in NoSQL, seeding initial data...');
           await seedBrackets();
           data = await getTaxBrackets();
         }
-        setBrackets(data || []);
+        
+        if (data && data.length > 0) {
+          setBrackets(data);
+          setDataSource('NoSQL');
+        } else {
+          throw new Error('No data returned from NoSQL');
+        }
       } catch (err) {
-        console.error('Failed to load tax configuration:', err);
+        console.warn('Failed to load tax configuration from NoSQL, using local fallback:', err);
+        // Fallback to local JSON if Firestore fails
+        setBrackets(initialBrackets.brackets);
+        setDataSource('Local Fallback');
       } finally {
         setLoading(false);
       }
@@ -89,25 +104,81 @@ export default function App() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <form onSubmit={handleCalculate} className="bg-[#121214] p-8 rounded-2xl border border-[#27272A] shadow-2xl space-y-6">
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="income" className="text-xs font-bold uppercase tracking-widest text-[#71717A]">Annual Gross Income</label>
-                  <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded text-[10px] text-emerald-400 font-bold">
-                    <Database size={10} />
-                    NOSQL
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="income" className="text-xs font-bold uppercase tracking-widest text-[#71717A]">Annual Gross Income</label>
+                    <div className={`flex items-center gap-1.5 px-2 py-0.5 border rounded text-[10px] font-bold transition-colors ${
+                      dataSource === 'NoSQL' 
+                        ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+                        : 'bg-orange-500/10 border-orange-500/20 text-orange-400'
+                    }`}>
+                      <Database size={10} />
+                      {dataSource}
+                    </div>
+                  </div>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3F3F46] font-mono">$</span>
+                    <input
+                      id="income"
+                      type="number"
+                      placeholder="75000"
+                      value={income}
+                      onChange={(e) => setIncome(e.target.value)}
+                      className="w-full pl-10 pr-4 py-4 bg-[#0A0A0B] border border-[#27272A] rounded-xl focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 outline-none transition-all text-lg font-medium text-[#F4F4F5]"
+                      required
+                    />
                   </div>
                 </div>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3F3F46] font-mono">$</span>
-                  <input
-                    id="income"
-                    type="number"
-                    placeholder="75000"
-                    value={income}
-                    onChange={(e) => setIncome(e.target.value)}
-                    className="w-full pl-10 pr-4 py-4 bg-[#0A0A0B] border border-[#27272A] rounded-xl focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50 outline-none transition-all text-lg font-medium text-[#F4F4F5]"
-                    required
-                  />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="city" className="text-[10px] font-bold uppercase tracking-widest text-[#71717A]">City</label>
+                    <input
+                      id="city"
+                      type="text"
+                      placeholder="Austin"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      className="w-full px-4 py-3 bg-[#0A0A0B] border border-[#27272A] rounded-lg focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all text-sm font-medium text-[#F4F4F5]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="state" className="text-[10px] font-bold uppercase tracking-widest text-[#71717A]">State</label>
+                    <input
+                      id="state"
+                      type="text"
+                      placeholder="TX"
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
+                      className="w-full px-4 py-3 bg-[#0A0A0B] border border-[#27272A] rounded-lg focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all text-sm font-medium text-[#F4F4F5]"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="zip" className="text-[10px] font-bold uppercase tracking-widest text-[#71717A]">Zip Code</label>
+                    <input
+                      id="zip"
+                      type="text"
+                      placeholder="78701"
+                      value={zip}
+                      onChange={(e) => setZip(e.target.value)}
+                      className="w-full px-4 py-3 bg-[#0A0A0B] border border-[#27272A] rounded-lg focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all text-sm font-medium text-[#F4F4F5]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="allowances" className="text-[10px] font-bold uppercase tracking-widest text-[#71717A]">Allowances</label>
+                    <input
+                      id="allowances"
+                      type="number"
+                      placeholder="2"
+                      value={allowances}
+                      onChange={(e) => setAllowances(e.target.value)}
+                      className="w-full px-4 py-3 bg-[#0A0A0B] border border-[#27272A] rounded-lg focus:ring-1 focus:ring-emerald-500/50 outline-none transition-all text-sm font-medium text-[#F4F4F5]"
+                    />
+                  </div>
                 </div>
               </div>
 

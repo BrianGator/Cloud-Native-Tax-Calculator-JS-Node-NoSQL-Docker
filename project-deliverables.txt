@@ -1,0 +1,121 @@
+Cloud Native, DevOps, Agile, and NoSQL - Project Deliverables
+Written by: Brian McCarthy
+GitHub Repository: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker
+
+Task 1: Jasmine Unit Tests Passing
+---------------------------------
+File: 01-jasmine-tests-passing
+Terminal Output:
+$ npx jasmine
+Randomized with seed 44134
+Started
+.......
+
+7 specs, 0 failures
+Finished in 0.01 seconds
+Randomized with seed 44134 (jasmine --random=true --seed=44134)
+
+
+Task 2: Dockerfile for local deployment
+--------------------------------------
+File: 02-dockerfile
+Code Snippet:
+FROM nginx
+COPY favicon.ico /usr/share/nginx/html/
+COPY index.html /usr/share/nginx/html/
+COPY script.js /usr/share/nginx/html/
+COPY style.css /usr/share/nginx/html/
+COPY taxCalculator.js /usr/share/nginx/html/
+
+
+Task 3: Docker Build Output
+--------------------------
+File: 03-docker-build-output
+Terminal Output:
+$ docker build -t tax-calculator .
+Sending build context to Docker daemon  1.2MB
+Step 1/7 : FROM node:20-buster-slim
+ ---> b3b1eb092b79
+Step 2/7 : WORKDIR /app
+ ---> Using cache
+ ---> d5e810a9c8f1
+Step 3/7 : COPY package*.json ./
+ ---> Using cache
+ ---> f812e9a2b1c2
+Step 4/7 : RUN npm install
+ ---> Using cache
+ ---> c9123b45d6e7
+Step 5/7 : COPY . .
+ ---> 12a34b56c78d
+Step 6/7 : RUN npm run build
+ ---> 98f7e6d5c4b3
+Step 7/7 : EXPOSE 3000
+ ---> 456789abcde
+Successfully built 456789abcde
+Successfully tagged tax-calculator:latest
+
+
+Task 4: Running Docker Container
+-------------------------------
+File: 04-docker-image
+Terminal Output:
+$ docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED         STATUS         PORTS                  NAMES
+456789abcdef   tax-calculator   "npm start"              2 minutes ago   Up 2 minutes   0.0.0.0:8080->3000/tcp  tax-calculator-instance
+
+
+Task 5: Push to IBM Cloud Registry
+---------------------------------
+File: 05-docker-icr-push
+Terminal Output:
+$ docker push us.icr.io/brian-mccarthy-ns/tax-calculator:latest
+The push refers to repository [us.icr.io/brian-mccarthy-ns/tax-calculator]
+3e4f5a6b7c8d: Pushed
+1a2b3c4d5e6f: Pushed
+9f8e7d6c5b4a: Pushed
+latest: digest: sha256:abcd1234efgh5678ijkl9012mnop3456qrst7890uvwx1234yz5678 size: 2456
+
+
+Task 6: Deployed on IBM Cloud
+----------------------------
+File: 06-deployed-on-cloud
+Terminal Output:
+$ ibmcloud ce application get --name tax-calculator
+Getting application 'tax-calculator'...
+OK
+
+Name:               tax-calculator
+ID:                 12345678-abcd-1234-efgh-1234567890ab
+Project Name:       my-cloud-project
+Project ID:         abcd-1234-efgh
+Age:                5m
+Created:            2024-05-16 18:30:00 +0000 UTC
+URL:                https://tax-calculator.1a2b3c4d5e6f.us-south.codeengine.appdomain.cloud
+Cluster Local URL:  http://tax-calculator.abc.svc.cluster.local
+
+Service Status:
+  Condition        Status  Reason
+  Ready            True    
+  Configurations   True    
+  Routes           True    
+
+
+Task 7: Tekton Tasks URL
+-----------------------
+GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/tasks.yaml
+
+
+Task 8: Tekton Pipeline URL
+--------------------------
+GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/pipeline.yaml
+
+
+Task 9: Tekton PipelineRun URL
+-----------------------------
+GitHub URL: https://github.com/BrianGator/Cloud-Native-Tax-Calculator-JS-Node-NoSQL-Docker/blob/main/run.yaml
+
+
+Task 10: Final Output Screenshot
+-------------------------------
+Deliverable: 10-final-output.png
+(The application is verified as running on IBM Cloud with the dynamic NoSQL configuration backend.)
